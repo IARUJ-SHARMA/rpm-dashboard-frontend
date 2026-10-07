@@ -15,10 +15,10 @@ Open your terminal and clone both the backend and frontend repositories into you
 
 ```bash
 # Clone the backend repository
-git clone [https://github.com/IARUJ-SHARMA/rpm-dashboard.git](https://github.com/IARUJ-SHARMA/rpm-dashboard.git)
+git clone https://github.com/IARUJ-SHARMA/rpm-dashboard.git
 
 # Clone the frontend repository
-git clone [https://github.com/IARUJ-SHARMA/rpm-dashboard-frontend.git](https://github.com/IARUJ-SHARMA/rpm-dashboard-frontend.git)
+git clone https://github.com/IARUJ-SHARMA/rpm-dashboard-frontend.git
 ```
 
 ---
