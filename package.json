@@ -1,0 +1,13 @@
+{
+  "name": "rpm-dashboard-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RPM Dashboard monorepo workspace — run both frontend and backend from root",
+  "scripts": {
+    "dev": "start \"RPM Backend\" cmd /k \"cd rpm-dashboard-main && npm run dev\" && start \"RPM Frontend\" cmd /k \"cd rpm-dashboard-frontend-main && npm run dev\"",
+    "dev:backend": "cd rpm-dashboard-main && npm run dev",
+    "dev:frontend": "cd rpm-dashboard-frontend-main && npm run dev",
+    "install:all": "cd rpm-dashboard-main && npm install && cd ../rpm-dashboard-frontend-main && npm install",
+    "build:frontend": "cd rpm-dashboard-frontend-main && npm run build"
+  }
+}
