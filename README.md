@@ -1,15 +1,107 @@
-That makes it much easier! Since the MySQL database and tables are already set up at the office, you can skip the database creation entirely and just focus on pulling down the code and linking it up.Here is the exact, streamlined sequence to get both repositories running cleanly tomorrow.1.Set up the Backend (rpm-dashboard):This needs to run first so the database connection is established before the frontend tries to fetch any data.Clone the repository: Open a terminal and run:Bashgit clone https://github.com/IARUJ-SHARMA/rpm-dashboard.git
-Navigate into the folder:Bashcd rpm-dashboard
-Install dependencies:Bashnpm install
-Configure the Environment: Create a .env file in the root of this folder and paste your exact office database credentials:PlaintextPORT=5000
+Ah, apologies for that, Sargent! The formatting in my last message might not have rendered correctly on your screen.
+
+Here is the exact setup guide formatted as standard Markdown. You can easily click the "Copy" button in the corner of this block and paste it directly into your `README.md` file:
+
+```markdown
+## Office Deployment & Local Setup Guide
+
+**Prerequisites:** Node.js must be installed, and the MySQL database (`maintanencedashboard`) should already be active on the office network.
+
+### 1. Backend Setup (`rpm-dashboard`)
+
+This must be initialized first to establish the database connection.
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/IARUJ-SHARMA/rpm-dashboard.git](https://github.com/IARUJ-SHARMA/rpm-dashboard.git)
+
+```
+
+2. **Navigate into the backend directory:**
+```bash
+cd rpm-dashboard
+
+```
+
+
+3. **Install dependencies:**
+```bash
+npm install
+
+```
+
+
+4. **Configure Environment Variables:**
+Create a `.env` file in the root of the `rpm-dashboard` directory and paste the office database credentials:
+```env
+PORT=5000
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=root123
 DB_NAME=maintanencedashboard
-Start the backend server:Bashnpm run dev
-(If npm run dev isn't in your package.json, use node index.js or node server.js depending on your entry file).How to verify: Look at the terminal output. It should say something like "Server running on port 5000" and "Connected to MySQL database."2.Create the Media Folder (Crucial for File Uploads):Git automatically ignores completely empty folders. If your backend relies on Multer to save uploaded videos or Excel files, you must ensure the destination folder exists, or the server will crash when you try to upload.While inside the rpm-dashboard backend folder, check if the uploads/media/ folder exists.If it does not exist, manually create it.How to verify: You should see a physical folder path of uploads/media/ inside your backend root directory.3.Set up the Frontend (rpm-dashboard-frontend):Now that the backend API is live, you can boot up the React interface.Open a completely new, second terminal window (leave the backend one running).Clone the frontend repository:Bashgit clone https://github.com/IARUJ-SHARMA/rpm-dashboard-frontend.git
-Navigate into the folder:Bashcd rpm-dashboard-frontend
-Install dependencies:Bashnpm install
-Start the frontend server:Bashnpm run dev
-How to verify: The terminal will confirm Vite is running, usually outputting a local link like http://localhost:5173.4.Final System Verification:Open your web browser on the office PC.Navigate to http://localhost:5173.Log in (or switch roles using your RBAC dropdown) and check the Audit Drawer or the Dashboard KPIs.How to verify: If the KPIs show data and the Audit Drawer loads without spinning endlessly, your frontend has successfully connected to your backend, which has successfully queried the office MySQL database. You are good to go!
+
+```
+
+
+5. **Verify Media Directories:**
+Since Git ignores empty folders, ensure the upload destination exists so Multer doesn't throw a path error. If it is missing, create it manually:
+```bash
+mkdir -p uploads/media/
+
+```
+
+
+6. **Start the backend server:**
+```bash
+npm run dev
+
+```
+
+
+*(Look for "Server running on port 5000" and "Connected to MySQL database" in the terminal output).*
+
+---
+
+### 2. Frontend Setup (`rpm-dashboard-frontend`)
+
+1. **Open a new terminal window** (leave the backend server running).
+2. **Clone the frontend repository:**
+```bash
+git clone [https://github.com/IARUJ-SHARMA/rpm-dashboard-frontend.git](https://github.com/IARUJ-SHARMA/rpm-dashboard-frontend.git)
+
+```
+
+
+3. **Navigate into the frontend directory:**
+```bash
+cd rpm-dashboard-frontend
+
+```
+
+
+4. **Install dependencies:**
+```bash
+npm install
+
+```
+
+
+5. **Start the Vite development server:**
+```bash
+npm run dev
+
+```
+
+
+*(The terminal should confirm Vite is running on `http://localhost:5173`).*
+
+### 3. Final Verification
+
+Open your web browser and navigate to `http://localhost:5173`. Check the Audit Drawer or KPI cards to verify data is successfully syncing from the office MySQL database.
+
+```
+
+This raw text version should show up perfectly for you! Let me know if you need any tweaks to the wording before you commit it.
+
+```
