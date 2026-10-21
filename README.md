@@ -77,6 +77,28 @@ If you run these `SELECT` queries and the tables are completely empty, you don't
 
 Your `ingest.js` engine will automatically parse the 8 sheets and populate all of these tables for you. Then, you can run the SQL queries above again to see your fully populated database!
 
+MySQL Workbench does not have a live auto-refresh feature to stream data in real-time. However, you can avoid pasting and running the SQL query repeatedly by using the visual Result Grid and just hitting a refresh button.
+
+
+
+Here is the easiest way to set this up so you can check your ticks and unticks instantly:
+
+Look at the left sidebar (Navigator) in MySQL Workbench and double-click the maintanencedashboard schema to make it active (the text will turn bold).
+
+Expand the Tables folder to see your list of tables.
+
+Right-click on the task_audit_log table and select "Select Rows - Limit 1000". This automatically runs a query and opens a visual grid tab showing your data.
+
+Leave this tab open in the background.
+
+Go to your React frontend in your browser and tick or untick a checklist item.
+
+Switch back to MySQL Workbench and click the small Refresh icon (🔄) located just above the data grid (or simply press Ctrl + Enter).
+
+The grid will instantly pull the newest snapshot of the database, and your latest tick/untick action will appear right at the bottom of the list. You can leave this tab open all day and just hit that refresh icon whenever you want to see the latest backend changes.
+
+
+
 Here is the exact setup guide formatted as standard Markdown. You can easily click the "Copy" button in the corner of this block and paste it directly into your `README.md` file:
 
 ```markdown
