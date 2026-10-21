@@ -105,3 +105,16 @@ Open your web browser and navigate to `http://localhost:5173`. Check the Audit D
 This raw text version should show up perfectly for you! Let me know if you need any tweaks to the wording before you commit it.
 
 ```
+
+I am deploying my project, the RPM Dashboard, on a new office machine. I have attached the project's completion report for full technical context on my architecture, database schema, and environment variables.
+
+My stack is:
+- Frontend: React 19 + TypeScript + Vite (Port 5173)
+- Backend: Node.js + Express (Port 5000)
+- Database: MySQL 8.0 (Port 3306, Schema: maintanencedashboard)
+
+I was following my setup sequence, but I encountered the following error:
+
+[PASTE YOUR EXACT ERROR MESSAGE OR TERMINAL OUTPUT HERE]
+
+Based on my tech stack and the attached document, please provide the exact, step-by-step troubleshooting path to resolve this issue.
