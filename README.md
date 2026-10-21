@@ -1,25 +1,81 @@
-To verify your database is set up correctly and to view the live data in MySQL Workbench just like you documented in your report, here are the exact SQL queries you need.You can copy and paste these directly into the MySQL Workbench Query tab.1. Select the Database & Check the TablesFirst, tell Workbench which database you are working in and verify that all 10 of your tables exist. Run this:SQLUSE maintanencedashboard;
+To verify your database is set up correctly and to view the live data in MySQL Workbench just like you documented in your report, here are the exact SQL queries you need.
+
+You can copy and paste these directly into the MySQL Workbench Query tab.
+
+### 1. Select the Database & Check the Tables
+
+First, tell Workbench which database you are working in and verify that all 10 of your tables exist. Run this:
+
+```sql
+USE maintanencedashboard;
 SHOW TABLES;
-(This should list your tables: calendar_events, checklist_tasks, consumables, fixed_life_spares, pm_records, reschedule_log, subsystems, task_audit_log, upload_log, and users.)2. The Verification Queries (From Your Report)Here are the exact queries from Section 6.3 of your Completion Report. Running these will let you see exactly what your frontend is doing on the backend.   To see your live Audit Trail (Every tick/untick):SQLSELECT id, task_id, old_status, new_status, changed_by, changed_at 
+
+```
+
+*(This should list your tables: `calendar_events`, `checklist_tasks`, `consumables`, `fixed_life_spares`, `pm_records`, `reschedule_log`, `subsystems`, `task_audit_log`, `upload_log`, and `users`.)*
+
+### 2. The Verification Queries (From Your Report)
+
+Here are the exact queries from **Section 6.3 of your Completion Report**. Running these will let you see exactly what your frontend is doing on the backend.
+
+**To see your live Audit Trail (Every tick/untick):**
+
+```sql
+SELECT id, task_id, old_status, new_status, changed_by, changed_at 
 FROM task_audit_log 
 ORDER BY changed_at DESC 
 LIMIT 10;
-To check Consumables Inventory & Low Stock Alerts:SQLSELECT item_id, consumable_item_name, current_qty, alert_threshold, status 
+
+```
+
+**To check Consumables Inventory & Low Stock Alerts:**
+
+```sql
+SELECT item_id, consumable_item_name, current_qty, alert_threshold, status 
 FROM consumables 
 ORDER BY current_qty ASC 
 LIMIT 10;
-To verify the Checklist Tasks & Video References:SQLSELECT task_id, subsystem_id, step_no, task_title, completion_status, video_ref_filename 
+
+```
+
+**To verify the Checklist Tasks & Video References:**
+
+```sql
+SELECT task_id, subsystem_id, step_no, task_title, completion_status, video_ref_filename 
 FROM checklist_tasks 
 ORDER BY subsystem_id, step_no 
 LIMIT 10;
-To check the Rescheduling Log (Date-Clash overrides):SQLSELECT log_id, subsystem_id, original_date, new_date, reason_for_rescheduling, requested_by 
+
+```
+
+**To check the Rescheduling Log (Date-Clash overrides):**
+
+```sql
+SELECT log_id, subsystem_id, original_date, new_date, reason_for_rescheduling, requested_by 
 FROM reschedule_log 
 ORDER BY log_id DESC;
-To verify your Master Excel Uploads:SQLSELECT id, filename, uploaded_at, summary 
+
+```
+
+**To verify your Master Excel Uploads:**
+
+```sql
+SELECT id, filename, uploaded_at, summary 
 FROM upload_log 
 ORDER BY id DESC 
 LIMIT 5;
-A Quick Note on "Making" the Backend DataIf you run these SELECT queries and the tables are completely empty, you don't need to manually type the data in! Because you built a Master Data Ingestion Pipeline (Section 3A.5), all you need to do is:   Make sure your React frontend and Express backend are running.Log in as an Administrator (ADMIN001).Click the Upload Excel button on your dashboard and select your RPM_Dashboard_InputData_v10.xlsx file.Your ingest.js engine will automatically parse the 8 sheets and populate all of these tables for you. Then, you can run the SQL queries above again to see your fully populated database!   
+
+```
+
+### A Quick Note on "Making" the Backend Data
+
+If you run these `SELECT` queries and the tables are completely empty, you don't need to manually type the data in! Because you built a **Master Data Ingestion Pipeline** (Section 3A.5), all you need to do is:
+
+1. Make sure your React frontend and Express backend are running.
+2. Log in as an Administrator (`ADMIN001`).
+3. Click the **Upload Excel** button on your dashboard and select your `RPM_Dashboard_InputData_v10.xlsx` file.
+
+Your `ingest.js` engine will automatically parse the 8 sheets and populate all of these tables for you. Then, you can run the SQL queries above again to see your fully populated database!
 
 Here is the exact setup guide formatted as standard Markdown. You can easily click the "Copy" button in the corner of this block and paste it directly into your `README.md` file:
 
