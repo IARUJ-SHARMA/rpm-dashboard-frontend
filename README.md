@@ -217,3 +217,56 @@ I was following my setup sequence, but I encountered the following error:
 [PASTE YOUR EXACT ERROR MESSAGE OR TERMINAL OUTPUT HERE]
 
 Based on my tech stack and the attached document, please provide the exact, step-by-step troubleshooting path to resolve this issue.
+
+
+
+
+
+They run on different ports because your application uses a **decoupled client-server architecture** (specifically, a separate frontend and backend).
+
+Here is why they are split onto two different ports (`5173` and `5000`):
+
+1. Frontend (Port 5173 - Vite):
+This is built with React and Vite. Vite runs a local development server primarily designed to serve your user interface, handle component rendering, manage hot-reloading when you change your code, and run in your web browser.
+
+
+2. Backend (Port 5000 - Express):
+This is built with Node.js and Express. It acts as a separate API server that handles business logic, connects directly to your MySQL database (`maintanencedashboard`), processes SQL queries, handles file uploads, and generates PDFs.
+
+
+
+### How they talk to each other:
+
+Even though they run on different ports, your frontend isn't isolated. Whenever you click a button on your dashboard (like ticking a checklist item or adjusting inventory stock), your React frontend makes an HTTP request to `http://localhost:5000/api/...` behind the scenes. Your Express backend receives that request, talks to MySQL, and sends the data back to your screen.
+
+Keeping them separate is standard industry practice because it keeps your UI code clean and completely independent from your database and server logic!
+
+
+Yes, you technically **can** merge them into a single server, but it is **not recommended** for a project like yours—especially for an industrial dashboard with databases, file uploads, and live logs.
+
+Here is why keeping them separate is much better, and how a merged setup would work:
+
+### Why keeping them separate is better:
+
+1. **Separation of Concerns:** Your frontend is built using React and Vite, which are designed just to compile and render your UI in the browser. Your backend is Node.js/Express, which handles secure database connections, password logic, and file systems. Mixing them makes the codebase messy.
+2. **Development Speed:** Vite gives you **Hot Module Replacement (HMR)**—meaning when you change a line of React code, your browser updates instantly without refreshing. If you merge them into a single Express server, you lose that smooth instant-reload experience.
+
+---
+
+### How people *do* merge them (if they really want to):
+
+If you ever wanted to run everything on just **one port** (for example, running everything on `http://localhost:5000`), you would have to do this:
+
+1. Run a build command on your frontend (`npm run build`), which turns your React code into static HTML/CSS/JS files.
+2. Tell your Express backend to serve those static files directly using middleware like this:
+```javascript
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+```
+
+
+
+### Why you shouldn't do this for development:
+
+If you merged them right now, every time you wanted to change a button color or fix a bug in your React components, you would have to manually run a full build command and restart your backend just to see the change. Keeping them on ports `5173` (frontend) and `5000` (backend) lets you code both sides simultaneously and see changes instantly!
